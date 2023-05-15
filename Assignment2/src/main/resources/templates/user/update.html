@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Update user</title>
+  <style>
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body class="update-body">
+<h2 th:text="${user.username}"></h2>
+
+<table border="1px">
+  <tr>
+    <th>Roles</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="role : ${roles}">
+    <td th:text="${role.name}">Role</td>
+    <td>
+      <th:block th:with="id=${role.id}">
+        <a th:href="@{${user.id} + '/delete/' + ${role.id}}">Delete</a>
+      </th:block>
+    </td>
+  </tr>
+</table>
+<hr>
+<h3>Update User</h3>
+<form method="POST" action="#" th:action="@{'/admin/users/addRole/' + ${user.id}}" th:object="${roles}">
+  <select th:name="selectedRole" id="roleList">
+    <option
+            th:each="role : ${availableRoles}"
+            th:text="${role.name}"
+            th:value="${role.name}"></option>
+  </select>
+  <input type="submit" name="roleList">
+</form>
+<hr>
+<br />
+<ul>
+  <li>
+    → <a th:href="@{'/admin/users'}">Back to the list</a>
+  </li>
+  <li>
+    → <a th:href="@{'/logout'}">Logout</a>
+  </li>
+  <li>
+    NOTE: ROLE_USER is default, it can't be deleted.
+  </li>
+</ul>
+</body>
+</html>

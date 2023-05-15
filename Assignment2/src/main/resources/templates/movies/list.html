@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="list">
+          <ul>
+              <li>
+                  → <a th:href="@{/user/movies/new}">Add New Movie</a>
+              </li>
+              <li>
+                  <table border="1px">
+                      <thead>
+                      <th>
+                          Title
+                      </th>
+                      <th>
+                          Director
+                      </th>
+                      <th>
+                          Actions
+                      </th>
+                      </thead>
+                      <tbody>
+                      <tr th:each="movie : ${movies}">
+                          <td th:text="${movie.getTitle()}">Title</td>
+                          <td th:text="${movie.getDirector()}">Director</td>
+                          <td>
+                              <th:block th:with="id=${movie.getId()}">
+                                  <a th:href="@{'/user/movies/update/' + ${id}}">Update</a>
+                                  <a th:href="@{'/user/movies/delete/' + ${id}}">Delete</a>
+                              </th:block>
+                          </td>
+                      </tr>
+                      </tbody>
+                  </table>
+              </li>
+              <li>
+                  → <a th:href="@{/logout}">Logout</a>
+              </li>
+          </ul>
+        </div>
+    </div>
+</body>
+</html>
